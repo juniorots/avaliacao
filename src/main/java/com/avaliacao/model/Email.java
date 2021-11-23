@@ -28,12 +28,6 @@ public class Email {
 	@Column(name="email")
 	private String email;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="cliente_email",
-			joinColumns={@JoinColumn(name="email_id", referencedColumnName="id")},
-			inverseJoinColumns={@JoinColumn(name="cliente_id",referencedColumnName="id")})
-	private List<Cliente> clienteList;
-
 	public long getId() {
 		return id;
 	}
@@ -49,12 +43,4 @@ public class Email {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public List<Cliente> getClienteList() {
-		return clienteList;
-	}
-
-	public void setClienteList(List<Cliente> clienteList) {
-		this.clienteList = clienteList;
-	}	
 }

@@ -42,14 +42,7 @@ public class ClienteController {
 	@PostMapping("/clientes")
 	public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
 		try {			
-			Cliente client = clienteRepository.save(new Cliente(
-					cliente.getNome(),
-					cliente.getCpf(),
-					cliente.getEndereco(),
-					cliente.getAuditoria(),
-					cliente.getTelefones(),
-					cliente.getEmails()
-					));
+			Cliente client = clienteRepository.save(cliente);
 			return new ResponseEntity<>(client, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); // :..-(

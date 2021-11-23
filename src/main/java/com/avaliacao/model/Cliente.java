@@ -1,5 +1,7 @@
 package com.avaliacao.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -36,20 +39,17 @@ public class Cliente {
 	@Embedded
 	private Auditoria auditoria;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinTable(name="cliente_telefone",
-			joinColumns={@JoinColumn(name="cliente_id",referencedColumnName="id")},
-			inverseJoinColumns={@JoinColumn(name="telefone_id", referencedColumnName="id")})
-	private Telefone telefones;
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Telefone> telefones;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinTable(name="cliente_email",
-			joinColumns={@JoinColumn(name="cliente_id",referencedColumnName="id")},
-			inverseJoinColumns={@JoinColumn(name="email_id", referencedColumnName="id")})
-	private Email emails;
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Email> emails;
+	
+	public Cliente() {
+	}
 	
 	public Cliente(String nome, String cpf, Endereco endereco, 
-			Auditoria auditoria, Telefone telefones, Email emails) {
+			Auditoria auditoria, List<Telefone> telefones, List<Email> emails) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.endereco = endereco;
@@ -98,19 +98,20 @@ public class Cliente {
 		this.auditoria = auditoria;
 	}
 
-	public Telefone getTelefones() {
+	public List<Telefone> getTelefones() {
 		return telefones;
 	}
 
-	public void setTelefones(Telefone telefones) {
+	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
 	}
 
-	public Email getEmails() {
+	public List<Email> getEmails() {
 		return emails;
 	}
 
-	public void setEmails(Email emails) {
+	public void setEmails(List<Email> emails) {
 		this.emails = emails;
-	}		
+	}
+
 }

@@ -35,12 +35,6 @@ public class Telefone {
 	
 	@Column(name="numero")
 	private String numero;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="cliente_telefone",
-			joinColumns={@JoinColumn(name="telefone_id", referencedColumnName="id")},
-			inverseJoinColumns={@JoinColumn(name="cliente_id",referencedColumnName="id")})
-	private List<Cliente> clienteList;
 
 	public long getId() {
 		return id;
@@ -66,11 +60,4 @@ public class Telefone {
 		this.numero = numero;
 	}
 
-	public List<Cliente> getClienteList() {
-		return clienteList;
-	}
-
-	public void setClienteList(List<Cliente> clienteList) {
-		this.clienteList = clienteList;
-	}	
 }

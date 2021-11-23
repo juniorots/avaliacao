@@ -42,7 +42,7 @@ public class UsuarioController {
 	public ResponseEntity<Usuario> getUsuario(@RequestBody Usuario usuario) {
 		try {
 			Optional<Usuario> user = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
-			if (!user.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			if (!user.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-(	
 			
 			return new ResponseEntity<>(user.get(), HttpStatus.OK);
 		} catch (Exception e) {
