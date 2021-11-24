@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * Model core business
@@ -33,14 +33,12 @@ public class Cliente {
 	@Column(name="cpf")
 	private String cpf;
 	
-	@OneToOne
-	@JoinColumn(name="endereco_id")
-	@JsonBackReference
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente")	
+	@JsonManagedReference
 	private Endereco endereco;	
 	
-	@OneToOne
-	@JoinColumn(name="auditoria_id")
-	@JsonBackReference
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente")	
+	@JsonManagedReference
 	private Auditoria auditoria;
 	
 	@OneToMany(cascade=CascadeType.ALL)

@@ -2,21 +2,24 @@ package com.avaliacao.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * Keep eyes in operations :-)
  * @author Jose
  *
  */
+//@Embeddable
 @Entity
 @Table(name="auditoria")
 public class Auditoria {	
@@ -30,8 +33,9 @@ public class Auditoria {
 	@Column(name="data")
 	private Date data;
 	
-	@OneToOne(mappedBy="auditoria")
-	@JsonManagedReference
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="cliente_id")
+	@JsonBackReference
 	private Cliente cliente;
 
 	public String getOperador() {
@@ -65,5 +69,4 @@ public class Auditoria {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
 }

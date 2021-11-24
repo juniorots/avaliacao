@@ -1,23 +1,27 @@
 package com.avaliacao.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * Address Clients
  * @author Jose
  *
  */
+//@Embeddable
 @Entity
 @Table(name="endereco")
 public class Endereco {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -40,8 +44,9 @@ public class Endereco {
 	@Column(name="complemento")
 	private String complemento;
 	
-	@OneToOne(mappedBy="endereco")
-	@JsonManagedReference
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="cliente_id")
+	@JsonBackReference
 	private Cliente cliente;
 
 	public String getCep() {
@@ -107,5 +112,5 @@ public class Endereco {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
+
 }
