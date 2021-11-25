@@ -83,8 +83,8 @@ class AvaliacaoApplicationTests {
 //	@Test
 	public void getCliente() {
 		try {
-			Optional<Cliente> client = clienteRepository.findById(1l);
-			System.out.println("CLIENTE RETORNADO: " + client.get().getNome());
+			Optional<Cliente> client = clienteRepository.findByNome("Yuri Francisco de Paula");
+			System.out.println("CLIENTE RETORNADO: " + client.get().getCpf());
 		} catch (Exception e) {
 			System.err.println(e); // :..-(
 		}

@@ -33,9 +33,9 @@ public class ClienteController {
 	@Autowired
 	ClienteRepository clienteRepository;
 	
-	@GetMapping("/clientes/{id}")
-	public ResponseEntity<Cliente> getClienteById(@PathVariable("id") long id) {
-		Optional<Cliente> cliente = clienteRepository.findById(id);
+	@GetMapping("/clientes/{nome}")
+	public ResponseEntity<Cliente> getClienteByNome(@PathVariable("nome") String nome) {
+		Optional<Cliente> cliente = clienteRepository.findByNome(nome);
 		if (cliente.isPresent()) return new ResponseEntity<>(cliente.get(), HttpStatus.OK);
 		
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-( 
