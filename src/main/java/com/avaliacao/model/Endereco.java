@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
  * @author Jose
  *
  */
-//@Embeddable
 @Entity
 @Table(name="endereco")
 public class Endereco {
