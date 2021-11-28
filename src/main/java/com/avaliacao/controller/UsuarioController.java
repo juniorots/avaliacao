@@ -20,7 +20,7 @@ import com.avaliacao.repository.UsuarioRepository;
  * @author Jose
  *
  */
-@CrossOrigin(origins="http://localhost:8080")
+@CrossOrigin(origins="http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class UsuarioController {
