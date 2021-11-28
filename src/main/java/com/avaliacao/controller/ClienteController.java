@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.avaliacao.model.Auditoria;
 import com.avaliacao.model.Cliente;
-import com.avaliacao.model.Endereco;
+import com.avaliacao.model.Telefone;
 import com.avaliacao.repository.ClienteRepository;
 
 /**
@@ -43,7 +42,13 @@ public class ClienteController {
 
 	@PostMapping("/clientes")
 	public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
-		try {			
+		try {
+			// formatting
+			cliente.setCpf(cliente.getCpf());
+			cliente.getEndereco().setCep(cliente.getEndereco().getCep());
+			for(Telefone t : cliente.getTelefones()) {
+				t.setNumero(t.getNumero());
+			}
 			Cliente client = clienteRepository.save(cliente);
 			return new ResponseEntity<>(client, HttpStatus.CREATED);
 		} catch (Exception e) {

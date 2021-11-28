@@ -53,7 +53,7 @@ public class Telefone {
 	}
 
 	public String getNumero() {
-		return numero;
+		return numero.replace("(", "").replace(")", "").replace("-", "");
 	}
 
 	public void setNumero(String numero) {

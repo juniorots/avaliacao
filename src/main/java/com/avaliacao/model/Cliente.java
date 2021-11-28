@@ -77,7 +77,7 @@ public class Cliente {
 	}
 
 	public String getCpf() {
-		return cpf;
+		return cpf.replace(".", "").replace("-", "");
 	}
 
 	public void setCpf(String cpf) {

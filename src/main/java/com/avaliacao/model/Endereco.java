@@ -49,7 +49,7 @@ public class Endereco {
 	private Cliente cliente;
 
 	public String getCep() {
-		return cep;
+		return cep.replace(".", "").replace("-", "");
 	}
 
 	public void setCep(String cep) {
