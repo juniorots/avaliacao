@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.avaliacao.model.Cliente;
+import com.avaliacao.model.Email;
 import com.avaliacao.model.Telefone;
 import com.avaliacao.repository.ClienteRepository;
 
@@ -62,12 +63,27 @@ public class ClienteController {
 		if (!tmpCliente.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-(
 		
 		Cliente client = tmpCliente.get();
+		client.setId(id);
 		client.setNome(cliente.getNome());
 		client.setCpf(cliente.getCpf());
 		client.setAuditoria(cliente.getAuditoria());
 		client.setEndereco(cliente.getEndereco());
-		client.setTelefones(cliente.getTelefones());
-		client.setEmails(cliente.getEmails());
+		client.setEmails(null);
+		client.setTelefones(null);
+		// formatting
+		for(Telefone t : cliente.getTelefones()) {
+			Telefone obj = new Telefone();
+			obj.setNumero(t.getNumero());
+			obj.setTipo(t.getTipo());
+			client.getTelefones().add(obj);
+		}
+		for (Email e : cliente.getEmails()) {
+			Email obj = new Email();
+			obj.setEmail(e.getEmail());
+			client.getEmails().add(obj);
+			
+		}
+	
 		return new ResponseEntity<>(clienteRepository.save(client), HttpStatus.OK);
 	}
 

@@ -41,7 +41,7 @@ class AvaliacaoApplicationTests {
 			cliente.setCpf("35682260066");
 			
 			Telefone tel = new Telefone();
-			tel.setTipo(3);
+			tel.setTipo("celular");
 			tel.setNumero("6199999999");
 			cliente.getTelefones().add(tel);
 			
