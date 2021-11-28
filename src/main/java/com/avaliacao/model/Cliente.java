@@ -33,11 +33,11 @@ public class Cliente {
 	@Column(name="cpf")
 	private String cpf;
 	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente")	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente", orphanRemoval = true)	
 	@JsonManagedReference
 	private Endereco endereco;	
 	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente")	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente", orphanRemoval = true)	
 	@JsonManagedReference
 	private Auditoria auditoria;
 	

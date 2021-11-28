@@ -66,24 +66,18 @@ public class ClienteController {
 		client.setId(id);
 		client.setNome(cliente.getNome());
 		client.setCpf(cliente.getCpf());
-		client.setAuditoria(cliente.getAuditoria());
+		cliente.getEndereco().setCliente(client);
 		client.setEndereco(cliente.getEndereco());
-		client.setEmails(null);
+		cliente.getAuditoria().setCliente(client);
+		client.setAuditoria(cliente.getAuditoria());
+		client.setEmails(cliente.getEmails());
 		client.setTelefones(null);
 		// formatting
 		for(Telefone t : cliente.getTelefones()) {
-			Telefone obj = new Telefone();
-			obj.setNumero(t.getNumero());
-			obj.setTipo(t.getTipo());
-			client.getTelefones().add(obj);
+			t.setNumero(t.getNumero());
+			client.getTelefones().add(t);
 		}
-		for (Email e : cliente.getEmails()) {
-			Email obj = new Email();
-			obj.setEmail(e.getEmail());
-			client.getEmails().add(obj);
-			
-		}
-	
+		
 		return new ResponseEntity<>(clienteRepository.save(client), HttpStatus.OK);
 	}
 

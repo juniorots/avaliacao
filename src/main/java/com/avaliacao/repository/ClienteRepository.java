@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.avaliacao.model.Cliente;
-import com.avaliacao.model.Usuario;
 
 /**
  * Interface JPA
