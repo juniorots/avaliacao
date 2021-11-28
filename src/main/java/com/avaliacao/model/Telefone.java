@@ -31,7 +31,7 @@ public class Telefone {
 	 * 3 - celular
 	 */
 	@Column(name="tipo")
-	private Integer tipo;
+	private String tipo;
 	
 	@Column(name="numero")
 	private String numero;
@@ -42,13 +42,13 @@ public class Telefone {
 
 	public void setId(long id) {
 		this.id = id;
-	}
+	}	
 
-	public Integer getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(Integer tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
@@ -59,5 +59,4 @@ public class Telefone {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-
 }
