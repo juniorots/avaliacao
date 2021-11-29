@@ -38,7 +38,7 @@ public class UsuarioController {
 		}
 	}	
 	
-	@GetMapping("/usuario")
+	@PostMapping("/validarAcesso")
 	public ResponseEntity<Usuario> getUsuario(@RequestBody Usuario usuario) {
 		try {
 			Optional<Usuario> user = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());

@@ -11,10 +11,13 @@ import com.avaliacao.model.Auditoria;
 import com.avaliacao.model.Cliente;
 import com.avaliacao.model.Email;
 import com.avaliacao.model.Endereco;
+import com.avaliacao.model.Perfil;
 import com.avaliacao.model.Telefone;
+import com.avaliacao.model.Usuario;
 import com.avaliacao.repository.AuditoriaRepository;
 import com.avaliacao.repository.ClienteRepository;
 import com.avaliacao.repository.EnderecoRepository;
+import com.avaliacao.repository.UsuarioRepository;
 
 @SpringBootTest
 class AvaliacaoApplicationTests {
@@ -28,9 +31,36 @@ class AvaliacaoApplicationTests {
 	@Autowired
 	AuditoriaRepository auditoriaRepository;
 	
+	@Autowired
+	UsuarioRepository usuarioRepository;
+	
 	@Test
 	void contextLoads() {
-		
+		Optional<Usuario> usr = usuarioRepository.findByLoginAndSenha("admin", "123456");
+		if (!usr.isPresent()) {
+			Usuario user = new Usuario();
+			user.setLogin("admin");
+			user.setSenha("123456");
+			Perfil p = new Perfil();
+			p.setNomePerfil("admin");
+			user.getPerfilList().add(p);
+			usuarioRepository.save(user);
+		}
+		usr = usuarioRepository.findByLoginAndSenha("comum", "123456");
+		if (!usr.isPresent()) {
+			Usuario user = new Usuario();
+			user.setLogin("comum");
+			user.setSenha("123456");
+			Perfil p = new Perfil();
+			p.setNomePerfil("comum");
+			user.getPerfilList().add(p);
+			usuarioRepository.save(user);
+		}
+	}
+	
+	@Test
+	void createUser() {
+			
 	}
 	
 //	@Test
