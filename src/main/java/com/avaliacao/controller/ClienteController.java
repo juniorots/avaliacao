@@ -1,5 +1,6 @@
 package com.avaliacao.controller;
 
+import java.util.Calendar;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class ClienteController {
 			// formatting
 			cliente.setCpf(cliente.getCpf());
 			cliente.getEndereco().setCep(cliente.getEndereco().getCep());
+			cliente.getAuditoria().setData(Calendar.getInstance().getTime());
 			for(Telefone t : cliente.getTelefones()) {
 				t.setNumero(t.getNumero());
 			}
@@ -69,6 +71,7 @@ public class ClienteController {
 		cliente.getEndereco().setCliente(client);
 		client.setEndereco(cliente.getEndereco());
 		cliente.getAuditoria().setCliente(client);
+		cliente.getAuditoria().setData(Calendar.getInstance().getTime());
 		client.setAuditoria(cliente.getAuditoria());
 		client.setEmails(cliente.getEmails());
 		client.setTelefones(null);
