@@ -14,6 +14,12 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * Keep eyes in operations :-)
  * @author Jose
@@ -21,6 +27,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
  */
 //@Embeddable
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="auditoria")
 public class Auditoria {	
 	@Id
@@ -36,37 +47,5 @@ public class Auditoria {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="cliente_id")
 	@JsonBackReference
-	private Cliente cliente;
-
-	public String getOperador() {
-		return operador;
-	}
-
-	public void setOperador(String operador) {
-		this.operador = operador;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+	private Cliente cliente;	
 }

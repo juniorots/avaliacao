@@ -1,6 +1,5 @@
 package com.avaliacao.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,12 +11,23 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * User's definitions
  * @author Jose
  *
  */
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="usuario") 
 public class Usuario {
 	@Id
@@ -32,47 +42,5 @@ public class Usuario {
 
 	//	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
 	@OneToMany(cascade=CascadeType.ALL)
-	private List<Perfil> perfilList;
-
-	public Usuario() {
-	}
-	
-	public Usuario(String login, String senha, List<Perfil> lista) {
-		this.login = login;
-		this.senha = senha;
-		perfilList = lista;
-	}
-	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public List<Perfil> getPerfilList() {
-		if (perfilList == null) return perfilList = new ArrayList<Perfil>();
-		return perfilList;
-	}
-
-	public void setPerfilList(List<Perfil> perfilList) {
-		this.perfilList = perfilList;
-	}	
+	private List<Perfil> perfilList;	
 }

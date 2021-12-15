@@ -1,8 +1,5 @@
 package com.avaliacao.controller;
 
-import java.util.Calendar;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.avaliacao.exception.ClienteNotFoundException;
 import com.avaliacao.model.Cliente;
-import com.avaliacao.model.Email;
-import com.avaliacao.model.Telefone;
-import com.avaliacao.repository.ClienteRepository;
+import com.avaliacao.service.impl.ClienteServiceImpl;
 
 /**
  * Controller operations.
@@ -32,28 +28,30 @@ import com.avaliacao.repository.ClienteRepository;
 public class ClienteController {
 	
 	@Autowired
-	ClienteRepository clienteRepository;
+	ClienteServiceImpl clienteService;
+	
 	
 	@GetMapping("/clientes/{nome}")
 	public ResponseEntity<Cliente> getClienteByNome(@PathVariable("nome") String nome) {
-		Optional<Cliente> cliente = clienteRepository.findByNome(nome);
-		if (cliente.isPresent()) return new ResponseEntity<>(cliente.get(), HttpStatus.OK);
-		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-( 
+		try {			
+			return new ResponseEntity<>(clienteService.getClienteByNome(nome), HttpStatus.OK);
+		} catch (ClienteNotFoundException ce) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-(
+		}
 	}
 
 	@PostMapping("/clientes")
 	public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
 		try {
 			// formatting
-			cliente.setCpf(cliente.getCpf());
-			cliente.getEndereco().setCep(cliente.getEndereco().getCep());
-			cliente.getAuditoria().setData(Calendar.getInstance().getTime());
-			for(Telefone t : cliente.getTelefones()) {
-				t.setNumero(t.getNumero());
-			}
-			Cliente client = clienteRepository.save(cliente);
-			return new ResponseEntity<>(client, HttpStatus.CREATED);
+//			cliente.setCpf(cliente.getCpf());
+//			cliente.getEndereco().setCep(cliente.getEndereco().getCep());
+//			cliente.getAuditoria().setData(Calendar.getInstance().getTime());
+//			for(Telefone t : cliente.getTelefones()) {
+//				t.setNumero(t.getNumero());
+//			}			
+//			Cliente client = clienteRepository.save(ClienteMappingImpl.toCliente(cliente));
+			return new ResponseEntity<>(clienteService.createCliente(cliente), HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); // :..-(
 		}
@@ -61,33 +59,36 @@ public class ClienteController {
 
 	@PutMapping("/clientes/{id}")
 	public ResponseEntity<Cliente> updateCliente(@PathVariable("id") long id, @RequestBody Cliente cliente) {
-		Optional<Cliente> tmpCliente = clienteRepository.findById(id);
-		if (!tmpCliente.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-(
-		
-		Cliente client = tmpCliente.get();
-		client.setId(id);
-		client.setNome(cliente.getNome());
-		client.setCpf(cliente.getCpf());
-		cliente.getEndereco().setCliente(client);
-		client.setEndereco(cliente.getEndereco());
-		cliente.getAuditoria().setCliente(client);
-		cliente.getAuditoria().setData(Calendar.getInstance().getTime());
-		client.setAuditoria(cliente.getAuditoria());
-		client.setEmails(cliente.getEmails());
-		client.setTelefones(null);
-		// formatting
-		for(Telefone t : cliente.getTelefones()) {
-			t.setNumero(t.getNumero());
-			client.getTelefones().add(t);
+//		Optional<Cliente> tmpCliente = clienteRepository.findById(id);
+//		if (!tmpCliente.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-(
+//		
+//		Cliente client = tmpCliente.get();
+//		client.setId(id);
+//		client.setNome(cliente.getNome());
+//		client.setCpf(cliente.getCpf());
+//		cliente.getEndereco().setCliente(client);
+//		client.setEndereco(cliente.getEndereco());
+//		cliente.getAuditoria().setCliente(client);
+//		cliente.getAuditoria().setData(Calendar.getInstance().getTime());
+//		client.setAuditoria(cliente.getAuditoria());
+//		client.setEmails(cliente.getEmails());
+//		client.setTelefones(null);
+//		// formatting
+//		for(Telefone t : cliente.getTelefones()) {
+//			t.setNumero(t.getNumero());
+//			client.getTelefones().add(t);
+//		}
+		try {
+			return new ResponseEntity<>(clienteService.updateCliente(id, cliente), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); // :..-(			
 		}
-		
-		return new ResponseEntity<>(clienteRepository.save(client), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/clientes/{id}")
 	public ResponseEntity<HttpStatus> deleteCliente(@PathVariable("id") long id) {
 		try {
-			clienteRepository.deleteById(id);
+			clienteService.deleteCliente(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // :..-(

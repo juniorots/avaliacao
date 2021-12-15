@@ -1,19 +1,16 @@
 package com.avaliacao.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.avaliacao.model.Usuario;
-import com.avaliacao.repository.UsuarioRepository;
+import com.avaliacao.service.impl.UsuarioServiceImpl;
 
 /**
  * Basic control user
@@ -26,13 +23,12 @@ import com.avaliacao.repository.UsuarioRepository;
 public class UsuarioController {
 	
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	UsuarioServiceImpl usuarioService;
 	
 	@PostMapping("/usuario")
 	public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
 		try {
-			Usuario user = usuarioRepository.save(usuario);
-			return new ResponseEntity<>(user, HttpStatus.CREATED);
+			return new ResponseEntity<>(usuarioService.createUsuario(usuario), HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); // :..-(
 		}
@@ -41,10 +37,10 @@ public class UsuarioController {
 	@PostMapping("/validarAcesso")
 	public ResponseEntity<Usuario> getUsuario(@RequestBody Usuario usuario) {
 		try {
-			Optional<Usuario> user = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
-			if (!user.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-(	
-			
-			return new ResponseEntity<>(user.get(), HttpStatus.OK);
+//			Optional<Usuario> user = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
+//			if (!user.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-(	
+//			
+			return new ResponseEntity<>(usuarioService.getUsuario(usuario).get(), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); // :..-(		
 		}		
