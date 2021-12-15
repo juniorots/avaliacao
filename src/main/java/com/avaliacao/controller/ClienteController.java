@@ -42,15 +42,7 @@ public class ClienteController {
 
 	@PostMapping("/clientes")
 	public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
-		try {
-			// formatting
-//			cliente.setCpf(cliente.getCpf());
-//			cliente.getEndereco().setCep(cliente.getEndereco().getCep());
-//			cliente.getAuditoria().setData(Calendar.getInstance().getTime());
-//			for(Telefone t : cliente.getTelefones()) {
-//				t.setNumero(t.getNumero());
-//			}			
-//			Cliente client = clienteRepository.save(ClienteMappingImpl.toCliente(cliente));
+		try {			
 			return new ResponseEntity<>(clienteService.createCliente(cliente), HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); // :..-(
@@ -59,25 +51,6 @@ public class ClienteController {
 
 	@PutMapping("/clientes/{id}")
 	public ResponseEntity<Cliente> updateCliente(@PathVariable("id") long id, @RequestBody Cliente cliente) {
-//		Optional<Cliente> tmpCliente = clienteRepository.findById(id);
-//		if (!tmpCliente.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-(
-//		
-//		Cliente client = tmpCliente.get();
-//		client.setId(id);
-//		client.setNome(cliente.getNome());
-//		client.setCpf(cliente.getCpf());
-//		cliente.getEndereco().setCliente(client);
-//		client.setEndereco(cliente.getEndereco());
-//		cliente.getAuditoria().setCliente(client);
-//		cliente.getAuditoria().setData(Calendar.getInstance().getTime());
-//		client.setAuditoria(cliente.getAuditoria());
-//		client.setEmails(cliente.getEmails());
-//		client.setTelefones(null);
-//		// formatting
-//		for(Telefone t : cliente.getTelefones()) {
-//			t.setNumero(t.getNumero());
-//			client.getTelefones().add(t);
-//		}
 		try {
 			return new ResponseEntity<>(clienteService.updateCliente(id, cliente), HttpStatus.OK);
 		} catch (Exception e) {

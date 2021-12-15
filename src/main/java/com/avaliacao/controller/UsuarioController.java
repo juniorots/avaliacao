@@ -37,9 +37,6 @@ public class UsuarioController {
 	@PostMapping("/validarAcesso")
 	public ResponseEntity<Usuario> getUsuario(@RequestBody Usuario usuario) {
 		try {
-//			Optional<Usuario> user = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
-//			if (!user.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // :..-(	
-//			
 			return new ResponseEntity<>(usuarioService.getUsuario(usuario).get(), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); // :..-(		
