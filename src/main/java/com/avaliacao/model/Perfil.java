@@ -7,12 +7,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * Definition access
  * @author Jose
  *
  */
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="perfil")
 public class Perfil {
 	@Id
@@ -20,26 +31,6 @@ public class Perfil {
 	private long id;
 	
 	@Column(name="nome")
-	private String nomePerfil;
-	
-	public Perfil() {
-		
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}	
-
-	public String getNomePerfil() {
-		return nomePerfil;
-	}
-
-	public void setNomePerfil(String nomePerfil) {
-		this.nomePerfil = nomePerfil;
-	}
+	private String nomePerfil;	
 			
 }

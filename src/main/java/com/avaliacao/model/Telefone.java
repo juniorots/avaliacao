@@ -1,17 +1,17 @@
 package com.avaliacao.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Phone Clients
@@ -19,6 +19,11 @@ import javax.persistence.Table;
  *
  */
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="telefone")
 public class Telefone {
 	@Id
@@ -36,27 +41,4 @@ public class Telefone {
 	@Column(name="numero")
 	private String numero;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}	
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public String getNumero() {
-		return numero.replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
 }
