@@ -1,6 +1,8 @@
-FROM openjdk:8-jre
-RUN mkdir app
-ARG JAR_FILE
-ADD /target/${JAR_FILE} /app/spring-docker-avaliacao.jar
-WORDIR /app
-ENTRYPOINT java -jar spring-docker-avaliacao.jar 
+FROM openjdk:8-jdk-alpine
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} /app/avaliacao.jar
+WORKDIR /app	
+EXPOSE 8081
+ENTRYPOINT ["java", "-jar", "avaliacao.jar"] 

@@ -47,5 +47,6 @@ public class Auditoria {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="cliente_id")
 	@JsonBackReference
-	private Cliente cliente;	
+	private Cliente cliente;
+	
 }

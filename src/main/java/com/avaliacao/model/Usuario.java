@@ -32,7 +32,7 @@ import lombok.ToString;
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private long id;	
 	
 	@Column(name="login")
 	private String login;
@@ -43,4 +43,11 @@ public class Usuario {
 	//	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Perfil> perfilList;	
+	
+	public String getLogin() {
+		return this.login;
+	}
+	public String getSenha() {
+		return this.senha;
+	}
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.avaliacao.exception.UsuarioNotFoundException;
 import com.avaliacao.model.Usuario;
 import com.avaliacao.repository.UsuarioRepository;
+import com.avaliacao.service.UsuarioService;
 
 /**
  * Refactory Architecture case
@@ -15,7 +16,7 @@ import com.avaliacao.repository.UsuarioRepository;
  *
  */
 @Service
-public class UsuarioServiceImpl {
+public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Autowired
 	UsuarioRepository usuarioRepository;
@@ -24,7 +25,7 @@ public class UsuarioServiceImpl {
 		return usuarioRepository.save(usuario);
 	}
 	
-	public Optional<Usuario> getUsuario(Usuario usuario) throws UsuarioNotFoundException {
+	public Optional<Usuario> getUsuario(Usuario usuario) throws UsuarioNotFoundException {	
 		Optional<Usuario> tmp = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
 		if (!tmp.isPresent()) throw new UsuarioNotFoundException("Usuario [ " + usuario.getLogin() + " ] nao encontrado."); // :..-(
 		return tmp;
