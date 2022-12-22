@@ -1,0 +1,21 @@
+version: "3"
+services:
+  juniorots/avaliacao:
+    image: juniorots/avaliacao
+    ports:
+      - "8081:8081"
+    networks:
+      - avaliacao-mysql
+    depends_on:
+      - mysqldb
+ 
+  mysqldb:
+    image: mysql:8
+    networks:
+      - avaliacao-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=novaSenha
+      - MYSQL_DATABASE=bootdb  
+
+networks:
+  avaliacao-mysql: 
