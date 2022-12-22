@@ -1,6 +1,6 @@
-# avaliacao
+# AVALIAÇÃO
 
-avaliação - Projeto de estudos e conceito prova sobre programação back-end;
+Avaliação - Projeto de estudos e conceito prova sobre programação back-end;
 
 ## DEFINIÇÃO
 
@@ -32,7 +32,6 @@ docker run --name avaliacao --network avaliacao-mysql -p 8081:8081 juniorots/ava
 
 ## When we are interested using docker compose
 docker-compose up
-
 
 ## Insert data with post method, in bash section
 curl --header "Content-Type: application/json"   --request POST   --data '{"login":"usuario01","senha":"novaSenha", "perfilList":[{"nomePerfil":"admin"}]}'   http://localhost:8081/api/usuario
